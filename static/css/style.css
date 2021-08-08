@@ -119,3 +119,14 @@ header .mnu-top li a:hover{
     -o-transition: all .4s ease;
     transition: all .4s ease;
 }
+form.login_form {
+    box-shadow: 0 0 5px 5px #c2c2c2; /* Тень */
+    padding: 10px; /* Поля вокруг текста */
+    background: rgb(255, 255, 255); /* Цвет фона */
+    width: 400px; /* Ширина элемента в пикселах */
+    margin: auto; /* Выравниваем по центру */
+    position: absolute;
+    top: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    }
