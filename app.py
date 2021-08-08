@@ -2,6 +2,9 @@ import os
 
 from flask import Flask, render_template, send_from_directory
 
+# есть базовый файл base.html где содержится код header, footer, подключение стилей
+# остальные файлы по факту наследуются от базового, название файла == страница
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'this_is_secret_key'
 
@@ -11,22 +14,19 @@ def index():
     return render_template("index.html")
 
 
+# тут реализация идеи сражения человека с ИИ
 @app.route('/mortal_with_ai', methods=['GET', 'POST'])
 def mortal_with_ai():
-    global game_started, empty_tiles_main_image
-    game_started = True
-    if len(empty_tiles_main_image) == 0:
-        game_started = False
-    else:
-        pass
     return render_template("mortal_with_ai.html")
 
 
+# тестирование ИИ
 @app.route('/test_ai', methods=['GET', 'POST'])
 def test_ai():
     return render_template("mortal_with_ai.html")
 
 
+# иконка страницы
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'img/favicon.ico',
@@ -34,7 +34,5 @@ def favicon():
 
 
 if __name__ == '__main__':
-    game_started = False
-    empty_tiles_main_image = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     port = int(os.environ.get("PORT", 5000))
     app.run(host="localhost", port=port)

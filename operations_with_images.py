@@ -3,6 +3,8 @@ import random
 from PIL import Image
 import os
 
+# тут я тестирую алгоритм сражения с ИИ
+
 
 def prepare_new_set():
     listdir = os.listdir("static/img/for_mortal/set/")
@@ -40,8 +42,8 @@ if __name__ == '__main__':
         del empty_tiles_main_image[0]
         main_img_for_test_ai = create_image_from_empty_tiles(empty_tiles_main_image)
         main_img_for_test_ai.show()
-        ai_choose = 2
-        ai_predict = [0, 1, 2, 3, 4]
+        ai_choose = 2  # тут я НЕ сделал model.predict
+        ai_predict = [0, 1, 2, 3, 4]  # это сложно объяснить)
         anwser = int(input(f"--> {ai_predict}"))  # 1
         correct_anwser = 1
         if anwser == correct_anwser == ai_choose:
