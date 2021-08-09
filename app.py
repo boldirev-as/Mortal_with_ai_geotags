@@ -23,7 +23,7 @@ def mortal_with_ai():
 # тестирование ИИ
 @app.route('/test_ai', methods=['GET', 'POST'])
 def test_ai():
-    return render_template("test_ai.html")
+    return render_template("test.html")
 
 
 # иконка страницы
