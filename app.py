@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, request, send_from_directory
 
 # есть базовый файл base.html где содержится код header, footer, подключение стилей
 # остальные файлы по факту наследуются от базового, название файла == страница
@@ -23,6 +23,16 @@ def mortal_with_ai():
 # тестирование ИИ
 @app.route('/test_ai', methods=['GET', 'POST'])
 def test_ai():
+    if request.method == "POST":
+        try:
+            print(request.files)
+            img = request.files['images[]']
+            if img is not None:
+                img.save(f'static/img/image.png')
+            # result = model.get_result(Image.open('static/image.png'))
+        except Exception as e:
+            print(e)
+
     return render_template("test_ai.html")
 
 

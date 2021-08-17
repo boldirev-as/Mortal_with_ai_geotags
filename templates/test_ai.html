@@ -2,15 +2,114 @@
 
 {% block content %}
 
-<div class="intro">
-    <div class="container">
-        <div class="cls__image">
-            <div class="cls__btn">выберите файл</div>
-        </div>
-        <div class="btn">
-            <a class="btn__1" href="#">Классифицировать изображение</a>
-        </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/code.js') }}"></script>
+
+<script>
+ jQuery(document).ready(function ($) {
+
+     var maxFileSize = 2 * 1024 * 1024; // (байт) Максимальный размер файла (2мб)
+     var queue = {};
+     var form = $('form#uploadImages');
+     var imagesList = $('#uploadImagesList');
+
+     var itemPreviewTemplate = imagesList.find('.item.template').clone();
+     itemPreviewTemplate.removeClass('template');
+     imagesList.find('.item.template').remove();
+
+
+     $('#addImages').on('change', function () {
+         var files = this.files;
+
+         for (var i = 0; i < files.length; i++) {
+             var file = files[i];
+
+             if ( !file.type.match(/image\/(jpeg|jpg|png|gif)/) ) {
+                 alert( 'Фотография должна быть в формате jpg, png, jpeg или gif' );
+                 continue;
+             }
+
+             if ( file.size > maxFileSize ) {
+                 alert( 'Размер фотографии не должен превышать 2 Мб' );
+                 continue;
+             }
+
+             preview(files[i]);
+         }
+
+         this.value = '';
+     });
+
+     // Создание превью
+     function preview(file) {
+         var reader = new FileReader();
+         reader.addEventListener('load', function(event) {
+             var img = document.createElement('img');
+
+             var itemPreview = itemPreviewTemplate.clone();
+
+             itemPreview.find('.img-wrap img').attr('src', event.target.result);
+             itemPreview.find('.img-wrap img').attr("width", 100);
+             itemPreview.find('.img-wrap img').attr("height", 100);
+             itemPreview.data('id', file.name);
+
+             imagesList.append(itemPreview);
+             queue[file.name] = file;
+         });
+         reader.readAsDataURL(file);
+     }
+
+     // Удаление фотографий
+     imagesList.on('click', '.delete-link', function () {
+         var item = $(this).closest('.item'),
+             id = item.data('id');
+
+         delete queue[id];
+         item.remove();
+     });
+
+     // Отправка формы
+     form.on('submit', function(event) {
+
+         var formData = new FormData(this);
+
+         for (var id in queue) {
+             formData.append('images[]', queue[id]);
+         }
+
+         $.ajax({
+             url: $(this).attr('action'),
+             type: 'POST',
+             data: formData,
+             async: true,
+             success: function (res) {},
+             cache: false,
+             contentType: false,
+             processData: false
+         });
+
+         return false;
+     });
+
+
+ });
+</script>
+
+<form method="post" enctype="multipart/form-data" id="uploadImages" class="login_form">
+    <div class="form-group">
+        <input type="file" id="addImages" name="addImage">
+        <input type="hidden" name="azaza" value="zazaza">
+        <ul id="uploadImagesList">
+            <li class="item template">
+            <span class="img-wrap">
+                <img src="#" alt="">
+            </span>
+                <button class="delete-link" title="Удалить" id="delete">Удалить</button>
+            </li>
+        </ul>
+
     </div>
-</div>
+    <button type="submit" class="btn btn-primary">Распознать знаки</button>
+</form>
 
 {% endblock %}
