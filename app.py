@@ -1,5 +1,5 @@
 import os
-
+from model import Model
 from flask import Flask, render_template, request, send_from_directory
 
 # есть базовый файл base.html где содержится код header, footer, подключение стилей
@@ -7,6 +7,7 @@ from flask import Flask, render_template, request, send_from_directory
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'this_is_secret_key'
+# model = Model("model.onnx")
 
 
 @app.route('/', methods=['GET'])
@@ -23,17 +24,17 @@ def mortal_with_ai():
 # тестирование ИИ
 @app.route('/test_ai', methods=['GET', 'POST'])
 def test_ai():
+    result = "//-->>-->>-->>//"
     if request.method == "POST":
         try:
-            print(request.files)
             img = request.files['images[]']
             if img is not None:
                 img.save(f'static/img/image.png')
-            # result = model.get_result(Image.open('static/image.png'))
+            result = model.get_result(Image.open('static/image.png'))
         except Exception as e:
             print(e)
 
-    return render_template("test_ai.html")
+    return render_template("test_ai.html", result=result)
 
 
 # иконка страницы

@@ -49,8 +49,8 @@
              var itemPreview = itemPreviewTemplate.clone();
 
              itemPreview.find('.img-wrap img').attr('src', event.target.result);
-             itemPreview.find('.img-wrap img').attr("width", 100);
-             itemPreview.find('.img-wrap img').attr("height", 100);
+             itemPreview.find('.img-wrap img').attr("width", 300);
+             itemPreview.find('.img-wrap img').attr("height", 300);
              itemPreview.data('id', file.name);
 
              imagesList.append(itemPreview);
@@ -93,23 +93,37 @@
 
 
  });
+
+
+
 </script>
 
-<form method="post" enctype="multipart/form-data" id="uploadImages" class="login_form">
-    <div class="form-group">
-        <input type="file" id="addImages" name="addImage">
-        <input type="hidden" name="azaza" value="zazaza">
-        <ul id="uploadImagesList">
-            <li class="item template">
-            <span class="img-wrap">
-                <img src="#" alt="">
-            </span>
-                <button class="delete-link" title="Удалить" id="delete">Удалить</button>
-            </li>
-        </ul>
 
-    </div>
-    <button type="submit" class="btn btn-primary">Распознать знаки</button>
-</form>
+<div class="intro">
+    <form method="post" enctype="multipart/form-data" id="uploadImages" class="login_form">
+        <div class="container">
+            <div class="form-group">
+                <input type="file" id="addImages" name="addImage" class="cls__btn">
+                <input type="hidden" name="azaza" value="zazaza" class="cls__btn">
+                <ul id="uploadImagesList">
+                    <li class="item template">
+                        <span class="img-wrap">
+                            <img src="#" alt="">
+                        </span>
+                        <button class="delete-link" title="Удалить" id="delete">Удалить</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="right__container">
+                <div class="btn">
+                    <button type="submit" class="btn btn-primary btn__1">Распознать знаки</button>
+                </div>
+                <br>
+                <br>
+                <a>Предсказание модели -> {{result}}</a>
+            </div>
+        </div>
+    </form>
+</div>
 
 {% endblock %}
