@@ -4,17 +4,19 @@
 
 <link rel="stylesheet" href='{{ url_for("static", filename="css/for_mortal.css") }}'>
 <div class="intro">
-    <div class="container">
-        <img class="image" src="{{ url_for('static', filename='img/image.png')}}">
-        <div class="search__btn">
-            <a class="btn__1" href="#">Выбрать знак...</a>
+    <form method="post" enctype="multipart/form-data" id="uploadImages" class="login_form">
+        <div class="container">
+            <img class="image" src="{{ url_for('static', filename='img/image.png')}}">
+            <div class="search__btn">
+                <a class="btn__1" href="#">Выбрать знак...</a>
+            </div>
         </div>
-    </div>
-    <div class="container__2">
-        <div class="btns">
-            <a class="btn__2" href="#">Подтвердить выбор</a>
+        <div class="container__2">
+            <div class="btns">
+                <button class="btn btn-primary btn__2" type="submit">Подтвердить выбор</button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
 {% endblock %}
