@@ -1,1 +1,20 @@
 {% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href='{{ url_for("static", filename="css/for_mortal.css") }}'>
+<div class="intro">
+    <div class="container">
+        <img class="image" src="{{ url_for('static', filename='img/image.png')}}">
+        <div class="search__btn">
+            <a class="btn__1" href="#">Выбрать знак...</a>
+        </div>
+    </div>
+    <div class="container__2">
+        <div class="btns">
+            <a class="btn__2" href="#">Подтвердить выбор</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

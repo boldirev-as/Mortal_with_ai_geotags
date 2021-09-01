@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href='{{ url_for("static", filename="css/for_mortal2.css") }}'>
+<div class="intro">
+        <div class="intro__title__block">
+            <div class="intro__title">Вы победили!</div>
+        </div>
+        <div class="container">
+            <div class="image"></div>
+            <div class="expected__answer">Правильный ответ:<br> *правильный ответ*</div>
+        </div>
+        <div class="container__2">
+            <div class="btn">
+                <a class="btn__1" href="#">Сыграть ещё раз</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

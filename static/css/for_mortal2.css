@@ -32,6 +32,7 @@ body {
 .logo {
     margin-top: 1.8vh;
 }
+
 a {
     color: #ccc;
     text-decoration: none;
@@ -40,12 +41,12 @@ a {
 }
 
 .a__1 {
-    transform: 5s;
+    transition: 0.2s;
 }
 
 .a__2 {
     margin-left: 100px;
-    transform: 5s;
+    transition: 0.2s;
 }
 
 .a__1:hover {
@@ -56,63 +57,62 @@ a {
     color: #878787;
 }
 
-
 .intro {
     margin: 0 auto;
-    width: 700px;
+    width: 600px;
+    text-align: center;
 }
 
-h1 {
-    font-weight: 400;
-    color: #ccc;
+.intro__title__block {
+    margin-top: 8vh;
+    margin-bottom: 7vh;
 }
 
 .intro__title {
-    margin-top: 9vh;
-    font-size: 48px;
+    margin: 0 auto;
+    font-size: 40px;
     font-weight: 400;
     font-family: 'Mako', sans-serif;
     color: #ccc;
-    line-height: 1.15em;
 }
 
 .container {
-    margin-top: 2vh;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-p {
-    color: #ccc;
-    font-size: 16px;
-    line-height: 1.35em;
-    width: 600px;
+.image {
+    height: 250px;
+    width: 250px;
+    background: #222;
+    border: 2px solid;
+    border-color: #111;
+    border-style: dashed;
 }
+
+.expected__answer {
+    margin: 0 auto;
+    margin-top: 10px;
+    color: #ccc;
+}
+
+
 
 .btn {
-    margin-top: 8vh;
-    line-height: 5em;
+    width: 170px;
+    margin: 0 auto;
+    margin-top: 10vh;
 }
 
 .btn__1 {
-    color: #111;
     padding: 2.2vh 2.5vh;
     background: #ccc;
     border-radius: 20px;
     transition: .2s linear;
+    color: #222;
 }
 
 .btn__1:hover {
     background: #878787;
-}
-
-.btn__2 {
-    color: #111;
-    padding: 2.2vh 2.5vh;
-    background: #ccc;
-    border-radius: 20px;
-    transition: .2s linear;
-}
-
-.btn__2:hover {
-    background: #878787
 }
