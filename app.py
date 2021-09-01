@@ -1,5 +1,5 @@
 import os
-from operations_with_images import create_image_from_empty_tiles
+from operations_with_images import create_image_from_empty_tiles, prepare_new_set
 from flask import Flask, render_template, request, \
     send_from_directory, url_for, redirect
 import random
@@ -26,11 +26,17 @@ def help():
     return render_template("help_with_rules.html")
 
 
-@app.route('/final', methods=['GET'])
-def final():
+@app.route('/final/<id_text>', methods=['GET'])
+def final(id_text):
     global NUMBER_OF_ITERATION
     NUMBER_OF_ITERATION = 0
-    return render_template("anwser_model.html")
+    if id_text == "0":
+        text = "Ничья ))"
+    elif id_text == "1":
+        text = "Человек победил. ИИ проиграл"
+    else:
+        text = "ИИ выиграл. Человек нет"
+    return render_template("anwser_model.html", text=text)
 
 
 # тут реализация идеи сражения человека с ИИ
@@ -39,7 +45,8 @@ def mortal_with_ai():
     global NUMBER_OF_ITERATION, empty_tiles_main_image
 
     if NUMBER_OF_ITERATION >= 9:
-        return redirect("final")
+        prepare_new_set()
+        return redirect("final/0")
     else:
         if NUMBER_OF_ITERATION == 0:
             empty_tiles_main_image = [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -50,6 +57,17 @@ def mortal_with_ai():
         image.save("static/img/for_mortal/final.png")
         image = "img/for_mortal/final.png"
         NUMBER_OF_ITERATION += 1
+
+        ai_choose = 2  # тут я НЕ сделал model.predict
+        ai_predict = [0, 1, 2, 3, 4]  # это сложно объяснить)
+        anwser = 0  # 1
+        correct_anwser = 1
+        if anwser == correct_anwser:
+            print("Человек победил. ИИ проиграл")
+            return redirect("final/1")
+        elif ai_choose == correct_anwser:
+            print("ИИ выиграл. Человек нет")
+            return redirect("final/2")
     return render_template("mortal_with_ai.html", image=image)
 
 
@@ -79,6 +97,7 @@ def favicon():
 
 
 if __name__ == '__main__':
+    prepare_new_set()
     NUMBER_OF_ITERATION = 0
     empty_tiles_main_image = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     port = int(os.environ.get("PORT", 5000))
