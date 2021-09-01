@@ -1,0 +1,98 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    font-family: 'Carrois Gothic', sans-serif;
+    font-weight: 400;
+    background: #222;
+
+}
+
+.header {
+    background: #111;
+}
+.container__header {
+    width: 1180px;
+    height: 16.8vh;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.nav {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.mnu__top {
+    display: flex;
+    margin-top: 4.5vh;
+}
+
+.logo {
+    margin-top: 1.8vh;
+}
+a {
+    color: #ccc;
+    text-decoration: none;
+    font-family: 'PT Sans Caption', sans-serif;
+    letter-spacing: 0.03em;
+}
+
+.a__1 {
+    transform: 5s;
+}
+
+.a__2 {
+    margin-left: 100px;
+    transform: 5s;
+}
+
+.a__1:hover {
+    color: #878787;
+}
+
+.a__2:hover {
+    color: #878787;
+}
+
+.intro__title {
+    font-size: 40px;
+    font-weight: 400;
+    font-family: 'Mako', sans-serif;
+    color: #ccc;
+    margin-top: 19vh;
+    margin-bottom: 5vh;
+}
+
+.intro {
+    text-align: center;
+    width: 700px;
+    margin: 0 auto;
+}
+
+.intro__text {
+    color: #ccc;
+    font-size: 16px;
+    line-height: 1.35em;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.btn {
+    margin-top: 7vh;
+}
+
+.btn__1 {
+    color: #111;
+    padding: 2.2vh 2.5vh;
+    background: #ccc;
+    border-radius: 20px;
+    transition: .2s linear;
+    width: 130px;
+    margin: 0 auto;
+}
+
+.btn__1:hover {
+    background: #878787;
+}

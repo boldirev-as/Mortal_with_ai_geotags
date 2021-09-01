@@ -1,6 +1,7 @@
 import os
 from operations_with_images import create_image_from_empty_tiles
-from flask import Flask, render_template, request, send_from_directory, url_for
+from flask import Flask, render_template, request, \
+    send_from_directory, url_for, redirect
 import random
 
 # есть базовый файл base.html где содержится код header, footer, подключение стилей
@@ -18,14 +19,27 @@ def index():
     return render_template("index.html")
 
 
+@app.route('/help', methods=['GET'])
+def help():
+    global NUMBER_OF_ITERATION
+    NUMBER_OF_ITERATION = 0
+    return render_template("help_with_rules.html")
+
+
+@app.route('/final', methods=['GET'])
+def final():
+    global NUMBER_OF_ITERATION
+    NUMBER_OF_ITERATION = 0
+    return render_template("anwser_model.html")
+
+
 # тут реализация идеи сражения человека с ИИ
 @app.route('/mortal_with_ai', methods=['GET', 'POST'])
 def mortal_with_ai():
     global NUMBER_OF_ITERATION, empty_tiles_main_image
 
     if NUMBER_OF_ITERATION >= 9:
-        image = "#"
-        NUMBER_OF_ITERATION = 0
+        return redirect("final")
     else:
         if NUMBER_OF_ITERATION == 0:
             empty_tiles_main_image = [0, 1, 2, 3, 4, 5, 6, 7, 8]
