@@ -1,5 +1,4 @@
 import os
-from model import Model
 from operations_with_images import create_image_from_empty_tiles
 from flask import Flask, render_template, request, send_from_directory, url_for
 import random
