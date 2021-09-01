@@ -4,6 +4,10 @@ from PIL import Image
 import os
 
 # тут я тестирую алгоритм сражения с ИИ
+height = 600
+coords = [(0, 0), (0, 200), (0, 400),
+          (200, 0), (200, 200), (200, 400),
+          (400, 0), (400, 200), (400, 400)]
 
 
 def prepare_new_set():
@@ -28,10 +32,6 @@ def create_image_from_empty_tiles(empty_tiles):
 
 
 if __name__ == '__main__':
-    height = 600
-    coords = [(0, 0), (0, 200), (0, 400),
-              (200, 0), (200, 200), (200, 400, 400, 600),
-              (400, 0), (400, 200), (400, 400, 600, 600)]
     prepare_new_set()
     # create_image_from_empty_tiles([1, 2, 5, 6, 8]).show()
 

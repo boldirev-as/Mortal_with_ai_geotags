@@ -1,6 +1,8 @@
 import os
 from model import Model
-from flask import Flask, render_template, request, send_from_directory
+from operations_with_images import create_image_from_empty_tiles
+from flask import Flask, render_template, request, send_from_directory, url_for
+import random
 
 # есть базовый файл base.html где содержится код header, footer, подключение стилей
 # остальные файлы по факту наследуются от базового, название файла == страница
@@ -20,8 +22,22 @@ def index():
 # тут реализация идеи сражения человека с ИИ
 @app.route('/mortal_with_ai', methods=['GET', 'POST'])
 def mortal_with_ai():
-    image = f"img/for_mortal/marked"
-    return render_template("mortal_with_ai.html", image=)
+    global NUMBER_OF_ITERATION, empty_tiles_main_image
+
+    if NUMBER_OF_ITERATION >= 9:
+        image = "#"
+        NUMBER_OF_ITERATION = 0
+    else:
+        if NUMBER_OF_ITERATION == 0:
+            empty_tiles_main_image = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        random.shuffle(empty_tiles_main_image)
+        del empty_tiles_main_image[0]
+
+        image = create_image_from_empty_tiles(empty_tiles_main_image)
+        image.save("static/img/for_mortal/final.png")
+        image = "img/for_mortal/final.png"
+        NUMBER_OF_ITERATION += 1
+    return render_template("mortal_with_ai.html", image=image)
 
 
 # тестирование ИИ
@@ -51,5 +67,6 @@ def favicon():
 
 if __name__ == '__main__':
     NUMBER_OF_ITERATION = 0
+    empty_tiles_main_image = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
