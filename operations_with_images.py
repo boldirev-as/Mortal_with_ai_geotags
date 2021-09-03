@@ -33,7 +33,7 @@ def prepare_new_set():
 
 
 def machine_to_russian_point(name):
-    with open("definitions.csv", mode="r") as f:
+    with open("definitions.csv", mode="r", encoding="windows-1251") as f:
         for line in f.readlines():
             file, machine_name, russian_name = line.strip("\n").split(",")
             if name == machine_name:
