@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 from operations_with_images import create_image_from_empty_tiles, \
     prepare_new_set, machine_to_russian_point
