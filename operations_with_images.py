@@ -30,6 +30,22 @@ def prepare_new_set():
     return label
 
 
+def machine_to_russian_point(name):
+    with open("definitions.csv", mode="r") as f:
+        for line in f.readlines():
+            file, machine_name, russian_name = line.strip("\n").split(",")
+            if name == machine_name:
+                return russian_name
+
+
+def russian_to_machine_point(name):
+    with open("definitions.csv", mode="r") as f:
+        for line in f.readlines():
+            file, machine_name, russian_name = line.strip("\n").split(",")
+            if name == russian_name:
+                return machine_name
+
+
 def create_image_from_empty_tiles(empty_tiles):
     main_img = Image.new("RGB", (height, height), (255, 255, 255))
     not_empty_tiles = [x for x in range(9) if x not in empty_tiles]

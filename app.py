@@ -1,5 +1,6 @@
 import os
-from operations_with_images import create_image_from_empty_tiles, prepare_new_set
+from operations_with_images import create_image_from_empty_tiles, \
+    prepare_new_set, machine_to_russian_point
 from flask import Flask, render_template, request, \
     send_from_directory, url_for, redirect
 import random
@@ -38,7 +39,8 @@ def final(id_text):
         text = "ИИ выиграл. Человек нет"
     anwser = CORRECT_ANWSER[::]
     CORRECT_ANWSER = prepare_new_set()
-    return render_template("anwser_model.html", text=text, anwser=anwser,
+    return render_template("anwser_model.html", text=text,
+                           anwser=machine_to_russian_point(anwser),
                            image="img/for_mortal/final.png")
 
 
