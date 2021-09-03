@@ -13,7 +13,13 @@ coords = [(0, 0), (0, 200), (0, 400),
 def prepare_new_set():
     listdir = os.listdir("static/img/for_mortal/set/")
     file = random.choice(listdir)
-    img = Image.open(f"static/img/for_mortal/set/{file}").resize((600, 600))
+    filename = f"static/img/for_mortal/set/{file}"
+    with open("train.csv", mode="r") as f:
+        for line in f.readlines():
+            if file in line:
+                label = line.strip("\n").split(",")[1]
+                break
+    img = Image.open(filename).resize((600, 600))
     step = 200
     i = 0
     for x in range(0, height, step):
@@ -21,6 +27,7 @@ def prepare_new_set():
             puzzle = img.crop((x, y, x + step, y + step))
             puzzle.save(f"static/img/for_mortal/marked/{i}.png")
             i += 1
+    return label
 
 
 def create_image_from_empty_tiles(empty_tiles):

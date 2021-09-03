@@ -8,8 +8,10 @@
         <div class="intro__title">{{ text }}</div>
     </div>
     <div class="container">
-        <div class="image"></div>
-        <div class="expected__answer">Правильный ответ:<br> *правильный ответ*</div>
+        <div class="image">
+            <img class="image" src="{{ url_for('static', filename=image)}}">
+        </div>
+        <div class="expected__answer">Правильный ответ:<br> {{ anwser }} </div>
     </div>
 </div>
 

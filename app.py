@@ -28,7 +28,7 @@ def help():
 
 @app.route('/final/<id_text>', methods=['GET'])
 def final(id_text):
-    global NUMBER_OF_ITERATION
+    global NUMBER_OF_ITERATION, CORRECT_ANWSER
     NUMBER_OF_ITERATION = 0
     if id_text == "0":
         text = "Ничья ))"
@@ -36,16 +36,18 @@ def final(id_text):
         text = "Человек победил. ИИ проиграл"
     else:
         text = "ИИ выиграл. Человек нет"
-    return render_template("anwser_model.html", text=text)
+    anwser = CORRECT_ANWSER[::]
+    CORRECT_ANWSER = prepare_new_set()
+    return render_template("anwser_model.html", text=text, anwser=anwser,
+                           image="img/for_mortal/final.png")
 
 
 # тут реализация идеи сражения человека с ИИ
 @app.route('/mortal_with_ai', methods=['GET', 'POST'])
 def mortal_with_ai():
-    global NUMBER_OF_ITERATION, empty_tiles_main_image
+    global NUMBER_OF_ITERATION, empty_tiles_main_image, CORRECT_ANWSER
 
     if NUMBER_OF_ITERATION >= 9:
-        prepare_new_set()
         return redirect("final/0")
     else:
         if NUMBER_OF_ITERATION == 0:
@@ -61,11 +63,10 @@ def mortal_with_ai():
         ai_choose = 2  # тут я НЕ сделал model.predict
         ai_predict = [0, 1, 2, 3, 4]  # это сложно объяснить)
         anwser = 0  # 1
-        correct_anwser = 1
-        if anwser == correct_anwser:
+        if anwser == CORRECT_ANWSER:
             print("Человек победил. ИИ проиграл")
             return redirect("final/1")
-        elif ai_choose == correct_anwser:
+        elif ai_choose == CORRECT_ANWSER:
             print("ИИ выиграл. Человек нет")
             return redirect("final/2")
     return render_template("mortal_with_ai.html", image=image)
@@ -97,7 +98,7 @@ def favicon():
 
 
 if __name__ == '__main__':
-    prepare_new_set()
+    CORRECT_ANWSER = prepare_new_set()
     NUMBER_OF_ITERATION = 0
     empty_tiles_main_image = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     port = int(os.environ.get("PORT", 5000))
