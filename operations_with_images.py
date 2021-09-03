@@ -31,7 +31,7 @@ def prepare_new_set():
 
 
 def machine_to_russian_point(name):
-    with open("definitions.csv", mode="r", encoding="utf-8") as f:
+    with open("definitions.csv", mode="r", encoding="ISO-8859-1") as f:
         for line in f.readlines():
             file, machine_name, russian_name = line.strip("\n").split(",")
             if name == machine_name:
@@ -39,7 +39,7 @@ def machine_to_russian_point(name):
 
 
 def russian_to_machine_point(name):
-    with open("definitions.csv", mode="r", encoding="utf-8") as f:
+    with open("definitions.csv", mode="r", encoding="ISO-8859-1") as f:
         for line in f.readlines():
             file, machine_name, russian_name = line.strip("\n").split(",")
             if name == russian_name:
