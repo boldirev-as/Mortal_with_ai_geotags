@@ -6,11 +6,6 @@ from operations_with_images import create_image_from_empty_tiles, \
 from flask import Flask, render_template, request, \
     send_from_directory, url_for, redirect
 import random
-import torch
-from torchvision import models
-import torch.nn.functional as F
-import torch
-from torch import nn
 from PIL import Image
 import numpy as np
 
