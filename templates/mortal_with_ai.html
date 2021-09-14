@@ -4,11 +4,16 @@
 
 <link rel="stylesheet" href='{{ url_for("static", filename="css/for_mortal.css") }}'>
 <div class="intro">
+    <div class="intro__title">{{ text }}</div>
     <form method="post" enctype="multipart/form-data" id="uploadImages" class="login_form">
         <div class="container">
             <img class="image" src="{{ url_for('static', filename=image)}}">
             <div class="search__btn">
-                <a class="btn__1" href="#">Выбрать знак...</a>
+                <select class="btn__1">
+                    {% for i in ten_pos %}
+                        <option>{{ i }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
         <div class="container__2">

@@ -2,16 +2,25 @@
 
 import os
 from operations_with_images import create_image_from_empty_tiles, \
-    prepare_new_set, machine_to_russian_point
+    prepare_new_set, machine_to_russian_point, prepare_ten_positions
 from flask import Flask, render_template, request, \
     send_from_directory, url_for, redirect
 import random
+import torch
+from torchvision import models
+import torch.nn.functional as F
+import torch
+from torch import nn
+from PIL import Image
+import numpy as np
 
 # есть базовый файл base.html где содержится код header, footer, подключение стилей
 # остальные файлы по факту наследуются от базового, название файла == страница
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'this_is_secret_key'
+
+
 # model = Model("model.onnx")
 
 
@@ -64,16 +73,18 @@ def mortal_with_ai():
         image = "img/for_mortal/final.png"
         NUMBER_OF_ITERATION += 1
 
-        ai_choose = 2  # тут я НЕ сделал model.predict
-        ai_predict = [0, 1, 2, 3, 4]  # это сложно объяснить)
-        anwser = 0  # 1
+        ai_choose = 1  # torch.load("model.pth")(image)  # тут я НЕ сделал model.predict
+        print(ai_choose)
+        num_of_correct_position, ten_positions = prepare_ten_positions(CORRECT_ANWSER)  # это сложно объяснить)
+        anwser = 0 if request.method == "GET" else request.form.get('btn__1')  # 1
         if anwser == CORRECT_ANWSER:
             print("Человек победил. ИИ проиграл")
             return redirect("final/1")
         elif ai_choose == CORRECT_ANWSER:
             print("ИИ выиграл. Человек нет")
             return redirect("final/2")
-    return render_template("mortal_with_ai.html", image=image)
+    return render_template("mortal_with_ai.html", image=image, ten_pos=ten_positions,
+                           text="Начинаем" if request.method == "GET" else "Пока неправильный ответ")
 
 
 # тестирование ИИ
@@ -83,17 +94,17 @@ def test_ai():
     NUMBER_OF_ITERATION = 0
     result = "//-->>-->>-->>//"
     if request.method == "POST":
-        try:
-            img = request.files['images[]']
-            if img is not None:
-                img.save(f'static/img/image.png')
-            result = model.get_result(Image.open('static/image.png'))
-        except Exception as e:
-            print(e)
+        img = request.files['images[]']
+        if img is not None:
+            img.save(f'static/img/image.png')
+        image = Image.open('static/img/image.png').resize((224, 224))
+        image = [np.array(image)]  # .reshape((1, 3, 224, 224))
+        result = torch.load("model.pth")(image)
 
     return render_template("test_ai.html", result=result)
 
 
+# files.length
 # иконка страницы
 @app.route('/favicon.ico')
 def favicon():

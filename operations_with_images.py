@@ -56,6 +56,19 @@ def create_image_from_empty_tiles(empty_tiles):
     return main_img
 
 
+def prepare_ten_positions(label):
+    all_labels = list()
+    with open("definitions.csv", mode="r") as file:
+        for line in file.readlines():
+            name, label, russian_label = line.strip("\n").split(",")
+            all_labels.append(russian_label)
+    all_labels = [random.choice(all_labels) for _ in range(10)]
+    all_labels.append(machine_to_russian_point(label))
+    random.shuffle(all_labels)
+    print(machine_to_russian_point(label))
+    return all_labels.index(machine_to_russian_point(label)), all_labels
+
+
 if __name__ == '__main__':
     prepare_new_set()
     # create_image_from_empty_tiles([1, 2, 5, 6, 8]).show()

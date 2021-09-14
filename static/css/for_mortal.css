@@ -8,6 +8,15 @@ body {
 
 }
 
+.intro__title {
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Mako', sans-serif;
+    color: #ccc;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
 .header {
     background: #111;
 }
