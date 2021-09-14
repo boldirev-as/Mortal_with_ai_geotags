@@ -58,7 +58,7 @@ def create_image_from_empty_tiles(empty_tiles):
 
 def prepare_ten_positions(label):
     all_labels = list()
-    with open("definitions.csv", mode="r") as file:
+    with open("definitions.csv", mode="r", encoding="windows-1251") as file:
         for line in file.readlines():
             name, label, russian_label = line.strip("\n").split(",")
             all_labels.append(russian_label)
